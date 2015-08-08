@@ -1,16 +1,31 @@
 package ru.vaszol.contactlist;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity {
+import ru.vaszol.contactlist.contact.ConatactApp;
+import ru.vaszol.contactlist.contact.ContactAdapter;
+import ru.vaszol.contactlist.contact.model.ContactManager;
+
+public class MainActivity extends Activity {
+
+    private ListView contactLV=null;
+    private ContactManager contactManager=null;
+    private ContactAdapter contactAdapter=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        contactLV = (ListView) findViewById(R.id.listView);
+        contactManager=((ConatactApp)getApplication()).getContactManager();
+        contactAdapter=new ContactAdapter(getApplicationContext(),contactManager.getContacts());
+        contactLV.setAdapter(contactAdapter);
     }
 
     @Override
