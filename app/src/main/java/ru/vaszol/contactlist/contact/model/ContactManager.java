@@ -16,4 +16,12 @@ public class ContactManager {
     public List<Contact> getContacts() {
         return contacts;
     }
+
+    public void removeAtPosition(int position){
+        contacts.remove(position);
+    }
+
+    public Contact findByPosition(int position) {
+        return contacts.get(position);
+    }
 }

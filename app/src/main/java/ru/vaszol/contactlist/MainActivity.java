@@ -1,10 +1,13 @@
 package ru.vaszol.contactlist;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import ru.vaszol.contactlist.contact.ConatactApp;
@@ -26,6 +29,16 @@ public class MainActivity extends Activity {
         contactManager=((ConatactApp)getApplication()).getContactManager();
         contactAdapter=new ContactAdapter(getApplicationContext(),contactManager.getContacts());
         contactLV.setAdapter(contactAdapter);
+
+//        contactAdapter.notifyDataSetChanged();//информарует listView об изменении (abserver)
+        contactLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> list, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                intent.putExtra("position", position);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

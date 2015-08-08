@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="ru.vaszol.contactlist.Main2Activity">
+
+    <TextView
+        android:id="@+id/edit_name"
+        android:text="@string/edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
+        />
+    <TextView
+        android:id="@+id/edit_last_name"
+        android:text="@string/edit_last_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"/>
+    <TextView
+        android:id="@+id/edit_email"
+        android:text="@string/edit_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"/>
+    <ImageView
+        android:id="@+id/edit_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:minWidth="100dp"
+        android:minHeight="100dp"
+        android:layout_gravity="center_horizontal"
+        />
+    <Button
+        android:id="@+id/btn_ok"
+        android:text="@string/btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
+    <Button
+        android:id="@+id/btn_cancel"
+        android:text="@string/btn_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onClickClose"
+        />
+
+</LinearLayout>
