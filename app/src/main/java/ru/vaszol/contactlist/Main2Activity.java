@@ -35,8 +35,9 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     public void onClickClose(){
-        Intent intent = new Intent(Main2Activity.this, MainActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(Main2Activity.this, MainActivity.class);
+//        startActivity(intent);
+        finish(); //возвращает в предыдущую активность по стеку
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
