@@ -1,6 +1,5 @@
 package ru.vaszol.contactlist;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,26 +7,33 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.sql.SQLException;
+
 import ru.vaszol.contactlist.contact.ConatactApp;
 import ru.vaszol.contactlist.contact.model.Contact;
 
 public class Main2Activity extends AppCompatActivity {
 
-    private int position;
+    private Integer id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        position=getIntent().getIntExtra("position", 0);
+        id=getIntent().getIntExtra("id", 0);
 
         TextView name = (TextView) findViewById(R.id.edit_name);
         TextView lastName = (TextView) findViewById(R.id.edit_last_name);
         TextView email = (TextView) findViewById(R.id.edit_email);
         ImageView image = (ImageView) findViewById(R.id.edit_image);
 
-        Contact contact = ((ConatactApp)getApplication()).getContactManager().findByPosition(position);
+        Contact contact = null;
+        try {
+            contact = ((ConatactApp)getApplication()).getContactManager().findById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         name.setText(""+ contact.getName());
         lastName.setText(""+ contact.getLastName());

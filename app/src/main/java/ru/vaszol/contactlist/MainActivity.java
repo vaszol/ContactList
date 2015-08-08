@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.sql.SQLException;
+
 import ru.vaszol.contactlist.contact.ConatactApp;
 import ru.vaszol.contactlist.contact.ContactAdapter;
 import ru.vaszol.contactlist.contact.model.ContactManager;
@@ -27,15 +29,39 @@ public class MainActivity extends Activity {
 
         contactLV = (ListView) findViewById(R.id.listView);
         contactManager=((ConatactApp)getApplication()).getContactManager();
-        contactAdapter=new ContactAdapter(getApplicationContext(),contactManager.getContacts());
+        try {
+            contactAdapter=new ContactAdapter(getApplicationContext(),contactManager.getContacts());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         contactLV.setAdapter(contactAdapter);
+
+        contactLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                try {
+                    contactManager.removeAtId((int) id);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+//                contactAdapter.notifyDataSetChanged();
+                try{
+                    contactAdapter = new ContactAdapter(getApplicationContext(),contactManager.getContacts());
+                    contactLV.setAdapter(contactAdapter);
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+
+                return true;
+            }
+        });
 
 //        contactAdapter.notifyDataSetChanged();//информарует listView об изменении (abserver)
         contactLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> list, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-                intent.putExtra("position", position);
+                intent.putExtra("id", position);
                 startActivity(intent);
             }
         });
