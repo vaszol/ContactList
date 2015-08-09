@@ -16,7 +16,7 @@ import ru.vaszol.contactlist.contact.model.Contact;
 
 public class Main2Activity extends AppCompatActivity {
 
-    private int position;
+    private int id;
     private EditText name, lastName, email;
     private Button btnOk, btnCancel;
     private ImageView image;
@@ -35,11 +35,11 @@ public class Main2Activity extends AppCompatActivity {
         btnCancel= (Button) findViewById(R.id.btn_cancel);
         image= (ImageView) findViewById(R.id.edit_image);
 
-        position=getIntent().getIntExtra("position", -1);
+        id=getIntent().getIntExtra("id", -1);
 
-        //если вызвали через склик по контакту, то выводим данные по контакту
-        if(position>-1){
-            Contact contact = ((ConatactApp)getApplication()).getContactManager().findById(position);
+        //если id известна, то выводим данные по контакту
+        if(id != -1){
+            Contact contact = ((ConatactApp)getApplication()).getContactManager().findById(id);
 
             name.setText(""+ contact.getName());
             lastName.setText("" + contact.getLastName());
@@ -59,8 +59,6 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
-
-
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +68,7 @@ public class Main2Activity extends AppCompatActivity {
     }
     public void onClickOk(View view){
         Intent intent = new Intent();
+//        intent.putExtra("id", position);
         intent.putExtra("name", name.getText().toString());
         intent.putExtra("lastName", lastName.getText().toString());
         intent.putExtra("email", email.getText().toString());

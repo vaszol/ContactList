@@ -46,11 +46,23 @@ public class MainActivity extends ActionBarActivity {
         contactLV.setAdapter(contactAdapter);
 
 //        contactAdapter.notifyDataSetChanged();//информарует listView об изменении (abserver)
+        contactLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                contactManager.removeAtID((int) id);
+                contactAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+
+        /**
+         * вызываем редактор контакта
+         */
         contactLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> list, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-                intent.putExtra("position", position);
+                intent.putExtra("id", position);
                 startActivityForResult(intent, RequestCode.REQUEST_CODE_EDIT);
             }
         });
@@ -79,7 +91,9 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
+    /**
+     * вызываем добавление контакта
+     */
     public void addItem(MenuItem item) {
         Intent intent = new Intent(MainActivity.this, Main2Activity.class);
         startActivityForResult(intent, RequestCode.REQUEST_CODE_ADD);
@@ -98,7 +112,8 @@ public class MainActivity extends ActionBarActivity {
                      name = data.getStringExtra("name");
                      lastName = data.getStringExtra("lastName");
                      email = data.getStringExtra("email");
-                    contactManager.getContacts().add(new Contact(4, name, lastName, email));
+                    //с этой id исеются проблемы известно какие
+                    contactManager.getContacts().add(new Contact(3, name, lastName, email));
 //                    addData(name,lastName,email);
                     Toast.makeText(this,"Add! "+name, Toast.LENGTH_SHORT).show();
 
