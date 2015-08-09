@@ -5,7 +5,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#f5f5f5">
         <ImageView
             android:id="@+id/image"
             android:padding="5dp"

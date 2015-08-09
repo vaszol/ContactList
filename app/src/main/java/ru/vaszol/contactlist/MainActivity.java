@@ -1,9 +1,22 @@
 package ru.vaszol.contactlist;
 
-import android.app.Activity;
+//import android.app.Activity;
+//import android.content.Intent;
+//import android.os.Bundle;
+//import android.app.ActionBar;
+//import android.support.v7.app.ActionBarActivity;
+//
+//import android.view.Menu;
+//import android.view.MenuItem;
+//import android.support.v7.widget.Toolbar;
+//import android.view.View;
+//import android.widget.AdapterView;
+//import android.widget.ListView;
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +28,7 @@ import ru.vaszol.contactlist.contact.ContactAdapter;
 import ru.vaszol.contactlist.contact.model.ContactManager;
 import ru.vaszol.contactlist.db.DataBase;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
 
     private ListView contactLV=null;
     private ContactManager contactManager=null;
@@ -27,6 +40,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if(toolbar!=null){
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
 
         dataBase = new DataBase(this);
 
