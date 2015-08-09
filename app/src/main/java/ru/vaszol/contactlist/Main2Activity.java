@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,11 +16,14 @@ import ru.vaszol.contactlist.contact.model.Contact;
 public class Main2Activity extends AppCompatActivity {
 
     private int position;
+    private Button btnCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        btnCancel= (Button) findViewById(R.id.btn_cancel);
 
         position=getIntent().getIntExtra("position", 0);
 
@@ -32,6 +37,13 @@ public class Main2Activity extends AppCompatActivity {
         name.setText(""+ contact.getName());
         lastName.setText(""+ contact.getLastName());
         email.setText(""+ contact.getEmail());
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickClose();
+            }
+        });
     }
 
     public void onClickClose(){
