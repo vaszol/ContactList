@@ -98,8 +98,8 @@ public class MainActivity extends ActionBarActivity {
                      name = data.getStringExtra("name");
                      lastName = data.getStringExtra("lastName");
                      email = data.getStringExtra("email");
-                    contactManager.getContacts().add(new Contact(4,name,lastName,email));
-                    addData(name,lastName,email);
+                    contactManager.getContacts().add(new Contact(4, name, lastName, email));
+//                    addData(name,lastName,email);
                     Toast.makeText(this,"Add! "+name, Toast.LENGTH_SHORT).show();
 
                     break;
@@ -107,6 +107,7 @@ public class MainActivity extends ActionBarActivity {
                      name = data.getStringExtra("name");
                      lastName = data.getStringExtra("lastName");
                      email = data.getStringExtra("email");
+//                    contactManager.getContacts(). add(new Contact(4,name,lastName,email));
                     Toast.makeText(this,"Edit! "+name, Toast.LENGTH_SHORT).show();
                     break;
             }
@@ -116,34 +117,34 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public void addData(String name, String lastName, String email){
-        boolean isInserted=dataBase.insertData(name,lastName,email);
-        if (isInserted)
-            Toast.makeText(this,"Data Inserted! "+name, Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(this,"Data Not Inserted! "+name, Toast.LENGTH_SHORT).show();
-    }
+//    public void addData(String name, String lastName, String email){
+//        boolean isInserted=dataBase.insertData(name,lastName,email);
+//        if (isInserted)
+//            Toast.makeText(this,"Data Inserted! "+name, Toast.LENGTH_SHORT).show();
+//        else
+//            Toast.makeText(this,"Data Not Inserted! "+name, Toast.LENGTH_SHORT).show();
+//    }
 
-    public void viewAll(){
-        Cursor res = dataBase.getAllData();
-        if (res.getCount() ==0){
-            return;
-        }
-        StringBuffer buffer=new StringBuffer();
-        while (res.moveToNext()){
-//            buffer.append("Id :"+ res.getString(0)+"\n");
-//            buffer.append("name :"+ res.getString(1)+"\n");
-//            buffer.append("lastName :"+ res.getString(2)+"\n");
-//            buffer.append("email :"+ res.getString(3)+"\n\n");
-//            contactManager.getContacts().add(new Contact(
-//                    res.getInt(0),
-//                    res.getString(1),
-//                    res.getString(2),
-//                    res.getString(3)
-//                    ));
-        }
-
-//        contactAdapter.notifyDataSetChanged();//информарует listView об изменении (abserver)
-    }
+//    public void viewAll(){
+//        Cursor res = dataBase.getAllData();
+//        if (res.getCount() ==0){
+//            return;
+//        }
+//        StringBuffer buffer=new StringBuffer();
+//        while (res.moveToNext()){
+////            buffer.append("Id :"+ res.getString(0)+"\n");
+////            buffer.append("name :"+ res.getString(1)+"\n");
+////            buffer.append("lastName :"+ res.getString(2)+"\n");
+////            buffer.append("email :"+ res.getString(3)+"\n\n");
+////            contactManager.getContacts().add(new Contact(
+////                    res.getInt(0),
+////                    res.getString(1),
+////                    res.getString(2),
+////                    res.getString(3)
+////                    ));
+//        }
+//
+////        contactAdapter.notifyDataSetChanged();//информарует listView об изменении (abserver)
+//    }
 
 }

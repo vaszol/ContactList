@@ -17,11 +17,23 @@ public class ContactManager {
         return contacts;
     }
 
-    public void removeAtPosition(int position){
-        contacts.remove(position);
+    public void removeAtID(int id){
+        List<Contact> contacts = getContacts();
+        Contact result = null;
+        for(Contact contact:contacts){
+            if(contact.getId()==id)
+                result=contact;
+        }
+        contacts.remove(result);
     }
 
-    public Contact findByPosition(int position) {
-        return contacts.get(position);
+    public Contact findById(int id) {
+        List<Contact> contacts = getContacts();
+        Contact result = null;
+        for(Contact contact:contacts){
+            if(contact.getId()==id)
+                result=contact;
+        }
+        return result;
     }
 }

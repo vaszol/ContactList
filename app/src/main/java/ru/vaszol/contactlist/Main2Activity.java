@@ -1,8 +1,6 @@
 package ru.vaszol.contactlist;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +13,6 @@ import android.widget.ImageView;
 
 import ru.vaszol.contactlist.contact.ConatactApp;
 import ru.vaszol.contactlist.contact.model.Contact;
-import ru.vaszol.contactlist.db.DataBase;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -42,7 +39,7 @@ public class Main2Activity extends AppCompatActivity {
 
         //если вызвали через склик по контакту, то выводим данные по контакту
         if(position>-1){
-            Contact contact = ((ConatactApp)getApplication()).getContactManager().findByPosition(position);
+            Contact contact = ((ConatactApp)getApplication()).getContactManager().findById(position);
 
             name.setText(""+ contact.getName());
             lastName.setText("" + contact.getLastName());
