@@ -2,6 +2,7 @@ package ru.vaszol.contactlist;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -44,6 +45,10 @@ public class Main2Activity extends AppCompatActivity {
         name.setText(""+ contact.getName());
         lastName.setText("" + contact.getLastName());
         email.setText("" + contact.getEmail());
+
+        name.setTextColor(Color.GRAY);
+        lastName.setTextColor(Color.GRAY);
+        email.setTextColor(Color.GRAY);
 
 //        final SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
 
