@@ -1,42 +1,65 @@
 package ru.vaszol.contactlist;
 
-import android.content.Intent;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import ru.vaszol.contactlist.contact.ConatactApp;
 import ru.vaszol.contactlist.contact.model.Contact;
+import ru.vaszol.contactlist.db.DataBase;
 
 public class Main2Activity extends AppCompatActivity {
 
     private int position;
-    private Button btnCancel;
+    private EditText name, lastName, email;
+    private Button btnOk, btnCancel;
+    private ImageView image;
+
+//    private DataBase dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+//        dataBase = new DataBase(this);
+        name = (EditText) findViewById(R.id.edit_name);
+        lastName = (EditText) findViewById(R.id.edit_last_name);
+        email = (EditText) findViewById(R.id.edit_email);
+        btnOk = (Button) findViewById(R.id.btn_ok);
         btnCancel= (Button) findViewById(R.id.btn_cancel);
+        image= (ImageView) findViewById(R.id.edit_image);
 
         position=getIntent().getIntExtra("position", 0);
-
-        TextView name = (TextView) findViewById(R.id.edit_name);
-        TextView lastName = (TextView) findViewById(R.id.edit_last_name);
-        TextView email = (TextView) findViewById(R.id.edit_email);
-        ImageView image = (ImageView) findViewById(R.id.edit_image);
 
         Contact contact = ((ConatactApp)getApplication()).getContactManager().findByPosition(position);
 
         name.setText(""+ contact.getName());
-        lastName.setText(""+ contact.getLastName());
-        email.setText(""+ contact.getEmail());
+        lastName.setText("" + contact.getLastName());
+        email.setText("" + contact.getEmail());
+
+//        final SQLiteDatabase sqLiteDatabase = dataBase.getWritableDatabase();
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ContentValues contentValues = new ContentValues;
+//                contentValues.put("name", name.getText().toString());
+//                contentValues.put("lastName", lastName.getText().toString());
+//                contentValues.put("email", email.getText().toString());
+
+//                sqLiteDatabase.insert("Contact",null,contentValues);
+            }
+        });
+
+
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override

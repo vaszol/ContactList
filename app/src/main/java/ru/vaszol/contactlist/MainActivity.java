@@ -13,6 +13,7 @@ import android.widget.ListView;
 import ru.vaszol.contactlist.contact.ConatactApp;
 import ru.vaszol.contactlist.contact.ContactAdapter;
 import ru.vaszol.contactlist.contact.model.ContactManager;
+import ru.vaszol.contactlist.db.DataBase;
 
 public class MainActivity extends Activity {
 
@@ -20,10 +21,14 @@ public class MainActivity extends Activity {
     private ContactManager contactManager=null;
     private ContactAdapter contactAdapter=null;
 
+    private DataBase dataBase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dataBase = new DataBase(this);
 
         contactLV = (ListView) findViewById(R.id.listView);
         contactManager=((ConatactApp)getApplication()).getContactManager();

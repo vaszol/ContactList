@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="ru.vaszol.contactlist.Main2Activity">
 
-    <TextView
+    <EditText
         android:id="@+id/edit_name"
         android:text="@string/edit_name"
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         android:layout_gravity="center_horizontal"
         android:padding="5dp"
         />
-    <TextView
+    <EditText
         android:id="@+id/edit_last_name"
         android:text="@string/edit_last_name"
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
         android:ems="10"
         android:layout_gravity="center_horizontal"
         android:padding="5dp"/>
-    <TextView
+    <EditText
         android:id="@+id/edit_email"
         android:text="@string/edit_email"
         android:layout_width="match_parent"
