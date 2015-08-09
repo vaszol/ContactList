@@ -1,6 +1,7 @@
 package ru.vaszol.contactlist;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import ru.vaszol.contactlist.contact.ConatactApp;
 import ru.vaszol.contactlist.contact.ContactAdapter;
+import ru.vaszol.contactlist.contact.model.Contact;
 import ru.vaszol.contactlist.contact.model.ContactManager;
 import ru.vaszol.contactlist.db.DataBase;
 import ru.vaszol.contactlist.util.RequestCode;
@@ -52,12 +54,8 @@ public class MainActivity extends ActionBarActivity {
                 startActivityForResult(intent, RequestCode.REQUEST_CODE_EDIT);
             }
         });
-    }
-
-    public void addData(){
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,9 +94,12 @@ public class MainActivity extends ActionBarActivity {
 
             switch (requestCode){
                 case RequestCode.REQUEST_CODE_ADD:
+
                      name = data.getStringExtra("name");
                      lastName = data.getStringExtra("lastName");
                      email = data.getStringExtra("email");
+                    contactManager.getContacts().add(new Contact(4,name,lastName,email));
+                    addData(name,lastName,email);
                     Toast.makeText(this,"Add! "+name, Toast.LENGTH_SHORT).show();
 
                     break;
@@ -114,4 +115,35 @@ public class MainActivity extends ActionBarActivity {
             Toast.makeText(this,"Cancel changes", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void addData(String name, String lastName, String email){
+        boolean isInserted=dataBase.insertData(name,lastName,email);
+        if (isInserted)
+            Toast.makeText(this,"Data Inserted! "+name, Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this,"Data Not Inserted! "+name, Toast.LENGTH_SHORT).show();
+    }
+
+    public void viewAll(){
+        Cursor res = dataBase.getAllData();
+        if (res.getCount() ==0){
+            return;
+        }
+        StringBuffer buffer=new StringBuffer();
+        while (res.moveToNext()){
+//            buffer.append("Id :"+ res.getString(0)+"\n");
+//            buffer.append("name :"+ res.getString(1)+"\n");
+//            buffer.append("lastName :"+ res.getString(2)+"\n");
+//            buffer.append("email :"+ res.getString(3)+"\n\n");
+//            contactManager.getContacts().add(new Contact(
+//                    res.getInt(0),
+//                    res.getString(1),
+//                    res.getString(2),
+//                    res.getString(3)
+//                    ));
+        }
+
+//        contactAdapter.notifyDataSetChanged();//информарует listView об изменении (abserver)
+    }
+
 }

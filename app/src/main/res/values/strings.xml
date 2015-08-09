@@ -7,6 +7,6 @@
     <string name="btn_ok">Ok</string>
     <string name="btn_cancel">Отмена</string>
     <string name="edit_email">email</string>
-    <string name="edit_last_name">Ladt Name</string>
+    <string name="edit_last_name">Last Name</string>
     <string name="edit_name">Name</string>
 </resources>
