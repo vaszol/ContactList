@@ -1,5 +1,6 @@
 package ru.vaszol.contactlist.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -24,12 +25,27 @@ public class DataBase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+TABLE_NAME+" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT , LASTNAME TEXT, EMAIL TEXT)");
+        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT , LASTNAME TEXT, EMAIL TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         onCreate(db);
+    }
+
+    public boolean insertData(String name,String lastName,String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+                contentValues.put(COL_2,name);
+                contentValues.put(COL_3,lastName);
+                contentValues.put(COL_4,email);
+//                contentValues.put("lastName", lastName.getText().toString());
+//                contentValues.put("email", email.getText().toString());
+        long result = db.insert(TABLE_NAME,null,contentValues);
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 }
