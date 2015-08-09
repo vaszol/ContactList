@@ -1,18 +1,5 @@
 package ru.vaszol.contactlist;
 
-//import android.app.Activity;
-//import android.content.Intent;
-//import android.os.Bundle;
-//import android.app.ActionBar;
-//import android.support.v7.app.ActionBarActivity;
-//
-//import android.view.Menu;
-//import android.view.MenuItem;
-//import android.support.v7.widget.Toolbar;
-//import android.view.View;
-//import android.widget.AdapterView;
-//import android.widget.ListView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -22,11 +9,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import ru.vaszol.contactlist.contact.ConatactApp;
 import ru.vaszol.contactlist.contact.ContactAdapter;
 import ru.vaszol.contactlist.contact.model.ContactManager;
 import ru.vaszol.contactlist.db.DataBase;
+import ru.vaszol.contactlist.util.RequestCode;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -47,7 +36,6 @@ public class MainActivity extends ActionBarActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-
         dataBase = new DataBase(this);
 
         contactLV = (ListView) findViewById(R.id.listView);
@@ -61,10 +49,15 @@ public class MainActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> list, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, Main2Activity.class);
                 intent.putExtra("position", position);
-                startActivity(intent);
+                startActivityForResult(intent, RequestCode.REQUEST_CODE_EDIT);
             }
         });
     }
+
+    public void addData(){
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,6 +84,34 @@ public class MainActivity extends ActionBarActivity {
 
     public void addItem(MenuItem item) {
         Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-        startActivity(intent);
+        startActivityForResult(intent, RequestCode.REQUEST_CODE_ADD);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode==RESULT_OK){
+            String name;
+            String lastName;
+            String email;
+
+            switch (requestCode){
+                case RequestCode.REQUEST_CODE_ADD:
+                     name = data.getStringExtra("name");
+                     lastName = data.getStringExtra("lastName");
+                     email = data.getStringExtra("email");
+                    Toast.makeText(this,"Add! "+name, Toast.LENGTH_SHORT).show();
+
+                    break;
+                case RequestCode.REQUEST_CODE_EDIT:
+                     name = data.getStringExtra("name");
+                     lastName = data.getStringExtra("lastName");
+                     email = data.getStringExtra("email");
+                    Toast.makeText(this,"Edit! "+name, Toast.LENGTH_SHORT).show();
+                    break;
+            }
+                    contactAdapter.notifyDataSetChanged();//информарует listView об изменении (abserver)
+        }else {
+            Toast.makeText(this,"Cancel changes", Toast.LENGTH_SHORT).show();
+        }
     }
 }

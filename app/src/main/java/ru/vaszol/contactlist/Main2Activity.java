@@ -1,6 +1,7 @@
 package ru.vaszol.contactlist;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +31,6 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-//        dataBase = new DataBase(this);
         name = (EditText) findViewById(R.id.edit_name);
         lastName = (EditText) findViewById(R.id.edit_last_name);
         email = (EditText) findViewById(R.id.edit_email);
@@ -40,6 +40,7 @@ public class Main2Activity extends AppCompatActivity {
 
         position=getIntent().getIntExtra("position", -1);
 
+        //если вызвали через склик по контакту, то выводим данные по контакту
         if(position>-1){
             Contact contact = ((ConatactApp)getApplication()).getContactManager().findByPosition(position);
 
@@ -57,12 +58,7 @@ public class Main2Activity extends AppCompatActivity {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ContentValues contentValues = new ContentValues;
-//                contentValues.put("name", name.getText().toString());
-//                contentValues.put("lastName", lastName.getText().toString());
-//                contentValues.put("email", email.getText().toString());
-
-//                sqLiteDatabase.insert("Contact",null,contentValues);
+                onClickOk(v);
             }
         });
 
@@ -75,10 +71,17 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
     }
+    public void onClickOk(View view){
+        Intent intent = new Intent();
+        intent.putExtra("name", name.getText().toString());
+        intent.putExtra("lastName", lastName.getText().toString());
+        intent.putExtra("email", email.getText().toString());
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
 
     public void onClickClose(){
-//        Intent intent = new Intent(Main2Activity.this, MainActivity.class);
-//        startActivity(intent);
         finish(); //возвращает в предыдущую активность по стеку
     }
     @Override
