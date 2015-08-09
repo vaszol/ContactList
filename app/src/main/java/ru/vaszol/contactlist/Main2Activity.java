@@ -38,13 +38,15 @@ public class Main2Activity extends AppCompatActivity {
         btnCancel= (Button) findViewById(R.id.btn_cancel);
         image= (ImageView) findViewById(R.id.edit_image);
 
-        position=getIntent().getIntExtra("position", 0);
+        position=getIntent().getIntExtra("position", -1);
 
-        Contact contact = ((ConatactApp)getApplication()).getContactManager().findByPosition(position);
+        if(position>-1){
+            Contact contact = ((ConatactApp)getApplication()).getContactManager().findByPosition(position);
 
-        name.setText(""+ contact.getName());
-        lastName.setText("" + contact.getLastName());
-        email.setText("" + contact.getEmail());
+            name.setText(""+ contact.getName());
+            lastName.setText("" + contact.getLastName());
+            email.setText("" + contact.getEmail());
+        }
 
         name.setTextColor(Color.GRAY);
         lastName.setTextColor(Color.GRAY);
