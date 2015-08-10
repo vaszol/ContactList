@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.sql.SQLException;
+
 import ru.vaszol.contactlist.contact.ConatactApp;
 import ru.vaszol.contactlist.contact.ContactAdapter;
 import ru.vaszol.contactlist.contact.model.Contact;
@@ -42,14 +44,22 @@ public class MainActivity extends ActionBarActivity {
 
         contactLV = (ListView) findViewById(R.id.listView);
         contactManager=((ConatactApp)getApplication()).getContactManager();
-        contactAdapter=new ContactAdapter(getApplicationContext(),contactManager.getContacts());
+        try {
+            contactAdapter=new ContactAdapter(getApplicationContext(),contactManager.getContacts());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         contactLV.setAdapter(contactAdapter);
 
 //        contactAdapter.notifyDataSetChanged();//информарует listView об изменении (abserver)
         contactLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                contactManager.removeAtID((int) id);
+                try {
+                    contactManager.removeAtID((int) id);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
                 contactAdapter.notifyDataSetChanged();
                 return true;
             }
@@ -113,7 +123,7 @@ public class MainActivity extends ActionBarActivity {
                      lastName = data.getStringExtra("lastName");
                      email = data.getStringExtra("email");
                     //с этой id исеются проблемы известно какие
-                    contactManager.getContacts().add(new Contact(3, name, lastName, email));
+//                    contactManager.getContacts().add(new Contact(3, name, lastName, email));
 //                    addData(name,lastName,email);
                     Toast.makeText(this,"Add! "+name, Toast.LENGTH_SHORT).show();
 

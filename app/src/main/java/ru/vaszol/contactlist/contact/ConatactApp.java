@@ -4,6 +4,8 @@ import android.app.Application;
 import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
 
 import java.sql.SQLException;
 
@@ -30,11 +32,25 @@ public class ConatactApp extends Application {
     public ContactManager getContactManager() {
         if(contactManager==null){
             contactManager = new ContactManager();
+
+            try {
+                Dao<Contact,Integer> contactDao = DaoManager.createDao(dbHelperORM.getConnectionSource(),Contact.class);
+                contactManager.setContactDao(contactDao);
+
+                if(contactDao.countOf()==0){
+                    contactDao.create(new Contact(0,"Ivan","Ivanov","ivan@ivanov.ru"));
+                    contactDao.create(new Contact(1,"Petr","Petrov","petr@petrov.com"));
+                    contactDao.create(new Contact(2,"Alex","Sidorov","alex@sidorov.org"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 //            DataBase dataBase = new DataBase(this);
 
-            contactManager.getContacts().add(new Contact(0,"Ivan","Ivanov","ivan@ivanov.ru"));
-            contactManager.getContacts().add(new Contact(1,"Petr","Petrov","petr@petrov.com"));
-            contactManager.getContacts().add(new Contact(2,"Alex","Sidorov","alex@sidorov.org"));
+//            contactManager.getContacts().add(new Contact(0,"Ivan","Ivanov","ivan@ivanov.ru"));
+//            contactManager.getContacts().add(new Contact(1,"Petr","Petrov","petr@petrov.com"));
+//            contactManager.getContacts().add(new Contact(2,"Alex","Sidorov","alex@sidorov.org"));
+
 //            boolean isInserted=dataBase.insertData("Ivan","Ivanov","ivan@ivanov.ru");
 //             isInserted=dataBase.insertData("Petr","Petrov","petr@petrov.com");
 //             isInserted=dataBase.insertData("Alex","Sidorov","alex@sidorov.org");

@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import java.sql.SQLException;
+
 import ru.vaszol.contactlist.contact.ConatactApp;
 import ru.vaszol.contactlist.contact.model.Contact;
 
@@ -39,7 +41,12 @@ public class Main2Activity extends AppCompatActivity {
 
         //если id известна, то выводим данные по контакту
         if(id != -1){
-            Contact contact = ((ConatactApp)getApplication()).getContactManager().findById(id);
+            Contact contact = null;
+            try {
+                contact = ((ConatactApp)getApplication()).getContactManager().findById(id);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
             name.setText(""+ contact.getName());
             lastName.setText("" + contact.getLastName());
