@@ -8,7 +8,7 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 @DatabaseTable(tableName = "Contact")
 public class Contact {
-    @DatabaseField(id = true, canBeNull = false)
+    @DatabaseField( generatedId = true) //id = true, canBeNull = false,
     private Integer id;
     @DatabaseField(columnName = "name", canBeNull = false, index = true, indexName = "name_index")
     private String name;
@@ -21,12 +21,18 @@ public class Contact {
         super();
     }
 
-    public Contact(Integer id, String name, String lastName, String email) {
-        this.id = id;
+    public Contact(String name, String lastName, String email) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
     }
+
+    //    public Contact(Integer id, String name, String lastName, String email) {
+//        this.id = id;
+//        this.name = name;
+//        this.lastName = lastName;
+//        this.email = email;
+//    }
 
     public Integer getId() {
         return id;

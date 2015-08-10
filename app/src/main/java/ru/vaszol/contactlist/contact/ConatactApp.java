@@ -38,9 +38,9 @@ public class ConatactApp extends Application {
                 contactManager.setContactDao(contactDao);
 
                 if(contactDao.countOf()==0){
-                    contactDao.create(new Contact(0,"Ivan","Ivanov","ivan@ivanov.ru"));
-                    contactDao.create(new Contact(1,"Petr","Petrov","petr@petrov.com"));
-                    contactDao.create(new Contact(2,"Alex","Sidorov","alex@sidorov.org"));
+                    contactDao.create(new Contact("Ivan","Ivanov","ivan@ivanov.ru"));
+                    contactDao.create(new Contact("Petr","Petrov","petr@petrov.com"));
+                    contactDao.create(new Contact("Alex","Sidorov","alex@sidorov.org"));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

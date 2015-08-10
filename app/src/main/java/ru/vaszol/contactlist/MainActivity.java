@@ -12,12 +12,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+
 import java.sql.SQLException;
 
 import ru.vaszol.contactlist.contact.ConatactApp;
 import ru.vaszol.contactlist.contact.ContactAdapter;
 import ru.vaszol.contactlist.contact.model.Contact;
 import ru.vaszol.contactlist.contact.model.ContactManager;
+import ru.vaszol.contactlist.db.DBHelperORM;
 import ru.vaszol.contactlist.db.DataBase;
 import ru.vaszol.contactlist.util.RequestCode;
 
@@ -26,6 +30,7 @@ public class MainActivity extends ActionBarActivity {
     private ListView contactLV=null;
     private ContactManager contactManager=null;
     private ContactAdapter contactAdapter=null;
+    private DBHelperORM dbHelperORM =null;
 
     private DataBase dataBase;
 
@@ -80,7 +85,9 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> list, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-                intent.putExtra("id", position);
+//                Dao<Contact,Integer> contactDao = DaoManager.createDao(dbHelperORM.getConnectionSource(), Contact.class);
+//                contactDao.queryForId(position);
+                intent.putExtra("id", position+1);
                 startActivityForResult(intent, RequestCode.REQUEST_CODE_EDIT);
             }
         });
@@ -128,13 +135,24 @@ public class MainActivity extends ActionBarActivity {
                 case RequestCode.REQUEST_CODE_ADD:
 
                      name = data.getStringExtra("name");
-                     lastName = data.getStringExtra("lastName");
-                     email = data.getStringExtra("email");
-                    //с этой id исеются проблемы известно какие
-//                    contactManager.getContacts().add(new Contact(3, name, lastName, email));
-//                    addData(name,lastName,email);
+//                     lastName = data.getStringExtra("lastName");
+//                     email = data.getStringExtra("email");
+                    try {
+                        Dao<Contact,Integer> contactDao = DaoManager.createDao(dbHelperORM.getConnectionSource(), Contact.class);
+                        contactDao.create(new Contact(
+                                data.getStringExtra("name"),
+                                data.getStringExtra("lastName"),
+                                data.getStringExtra("email")));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    try{
+                        contactAdapter = new ContactAdapter(getApplicationContext(), contactManager.getContacts());
+                        contactLV.setAdapter(contactAdapter);
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
                     Toast.makeText(this,"Add! "+name, Toast.LENGTH_SHORT).show();
-
                     break;
                 case RequestCode.REQUEST_CODE_EDIT:
                      name = data.getStringExtra("name");
