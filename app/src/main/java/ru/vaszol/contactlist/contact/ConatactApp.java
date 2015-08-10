@@ -3,8 +3,13 @@ package ru.vaszol.contactlist.contact;
 import android.app.Application;
 import android.widget.Toast;
 
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
+
+import java.sql.SQLException;
+
 import ru.vaszol.contactlist.contact.model.Contact;
 import ru.vaszol.contactlist.contact.model.ContactManager;
+import ru.vaszol.contactlist.db.DBHelperORM;
 import ru.vaszol.contactlist.db.DataBase;
 
 /**
@@ -12,6 +17,15 @@ import ru.vaszol.contactlist.db.DataBase;
  */
 public class ConatactApp extends Application {
     private ContactManager contactManager = null;
+    private DBHelperORM dbHelperORM =null;
+    public ConatactApp() {
+        super();
+        try {
+            dbHelperORM=new DBHelperORM(this);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public ContactManager getContactManager() {
         if(contactManager==null){

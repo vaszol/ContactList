@@ -17,6 +17,10 @@ public class Contact {
     @DatabaseField(columnName = "email", canBeNull = false, index = true, indexName = "email_index")
     private String email;
 
+    public Contact() {
+        super();
+    }
+
     public Contact(Integer id, String name, String lastName, String email) {
         this.id = id;
         this.name = name;
