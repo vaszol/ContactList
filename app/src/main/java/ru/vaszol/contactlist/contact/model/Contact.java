@@ -1,12 +1,20 @@
 package ru.vaszol.contactlist.contact.model;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * Created by vas on 08.08.2015.
  */
+@DatabaseTable(tableName = "Contact")
 public class Contact {
+    @DatabaseField(id = true, canBeNull = false)
     private Integer id;
+    @DatabaseField(columnName = "name", canBeNull = false, index = true, indexName = "name_index")
     private String name;
+    @DatabaseField(columnName = "lastName", canBeNull = false, index = true, indexName = "lastName_index")
     private String lastName;
+    @DatabaseField(columnName = "email", canBeNull = false, index = true, indexName = "email_index")
     private String email;
 
     public Contact(Integer id, String name, String lastName, String email) {
