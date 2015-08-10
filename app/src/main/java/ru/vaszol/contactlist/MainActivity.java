@@ -60,7 +60,15 @@ public class MainActivity extends ActionBarActivity {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                contactAdapter.notifyDataSetChanged();
+//                contactAdapter.notifyDataSetChanged(); //предыдущий abserver
+                try{
+                    contactAdapter = new ContactAdapter(getApplicationContext(), contactManager.getContacts());
+                    contactLV.setAdapter(contactAdapter);
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+
+
                 return true;
             }
         });
